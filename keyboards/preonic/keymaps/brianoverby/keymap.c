@@ -13,8 +13,9 @@ enum preonic_keycodes {
   LOWER
 };
 
+bool winkey_enabled = true;
+
 /* Define mod keys */
-#define game TG(_GAME)
 #define lw MO(_LOWER)
 #define ra MO(_RAISE)
 #define fn MO(_FN)
@@ -64,4 +65,3 @@ uint32_t layer_state_set_user(uint32_t state) {
   state = update_tri_layer_state(state, _LOWER, _FN, _SYSTEM);
   return state;
 }
-
