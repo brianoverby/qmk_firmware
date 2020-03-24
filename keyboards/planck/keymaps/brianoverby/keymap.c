@@ -50,8 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_planck_grid(
         tild, exlm, at,   hash, dlr,  perc, circ, ampr, astr, lprn, rprn, bspc,
-        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, unds, plus, lcbr, rcbr, acut,
-        ____, xxxx, xxxx, xxxx, xxxx, xxxx, xxxx, mins, eql,  lbrc, rbrc, ____,
+        ____, n1,   n2,   n3,   n4,   n5,   xxxx, unds, plus, lcbr, rcbr, acut,
+        ____, n6,   n7,   n8,   n9,   n0,   xxxx, mins, eql,  lbrc, rbrc, ____,
         ____, fn,   lgui, lalt, ____, ____, ____, ____, bsls, pipe, xxxx, xxxx
     ),
 
