@@ -79,6 +79,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SHIFT_ALL(KC_COMM, KC_DOT)
     case QUOT:
       SHIFT_NORM(quot, KC_2)
+    case BSLS:
+      SHIFT_ALWAYS_ALGR(lt, acut)
+    case GRV:
+      SHIFT_ON_ALGR(acut,uml)
     case NUM2:
       SHIFT_ALGR(KC_2,KC_2)
     case NUM4:

@@ -13,6 +13,7 @@ enum custom_keycodes {
   SCLN,                  // ; | :
   QUOT,                  // ' | "
   BSLS,                  // \ | |
+  GRV,                   // ` | ~
 
   NUM2,                  // 2 | @
   NUM4,                  // 4 | $
@@ -126,6 +127,28 @@ if (record->event.pressed) { \
   unregister_code(KC_ALGR); \
 } \
 return false;
+
+// Shift AltGr
+#define SHIFT_ON_ALGR(kc1, kc2) \
+if (record->event.pressed) { \
+  timer_timeout(); \
+  if (lshift) { \
+    unregister_code(KC_LSFT); \
+    register_code(KC_ALGR); \
+    unregister_code(kc2); \
+    register_code(kc2); \
+    unregister_code(kc2); \
+    register_code(KC_LSFT); \
+    unregister_code(KC_ALGR); \
+  } else { \
+    register_code(KC_LSFT); \
+    unregister_code(kc1); \
+    register_code(kc1); \
+    unregister_code(kc1); \
+  } \
+} \
+return false;
+
 
 // Inverted shift status
 #define SHIFT_SWITCH(kc1, kc2) \
