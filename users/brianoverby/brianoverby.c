@@ -93,3 +93,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return process_record_keymap(keycode, record);
 };
 
+#ifdef RGB_MATRIX_ENABLE
+
+void rgb_matrix_indicators_user() {
+
+  switch (biton32(layer_state)) {
+    case _BASE:
+      rgb_matrix_set_color_all(255, 255, 255);
+      break;
+    case _GAME:
+      rgb_matrix_set_color_all(50, 0, 50);
+      break;
+    case _LOWER:
+      rgb_matrix_set_color_all(50, 0, 250);
+      break;
+    case _RAISE:
+      rgb_matrix_set_color_all(250, 0, 50);
+      break;
+    case _FN:
+      rgb_matrix_set_color(22, 0, 0, 255);
+      rgb_matrix_set_color(23, 0, 0, 255);
+      rgb_matrix_set_color(11, 0, 0, 255);
+      rgb_matrix_set_color(1, 50, 0, 50);
+      rgb_matrix_set_color(2, 50, 0, 50);
+      rgb_matrix_set_color(3, 50, 0, 50);
+      rgb_matrix_set_color(4, 50, 0, 50);
+      rgb_matrix_set_color(13, 50, 0, 50);
+      rgb_matrix_set_color(14, 50, 0, 50);
+      rgb_matrix_set_color(15, 50, 0, 50);
+      rgb_matrix_set_color(16, 50, 0, 50);
+      rgb_matrix_set_color(25, 50, 0, 50);
+      rgb_matrix_set_color(26, 50, 0, 50);
+      rgb_matrix_set_color(27, 50, 0, 50);
+      rgb_matrix_set_color(28, 50, 0, 50);
+      break;
+    case _SYSTEM:
+      rgb_matrix_set_color_all(0, 0, 50);
+      break;
+    default:
+      rgb_matrix_set_color_all(255, 255, 255);
+    break;
+  }
+
+  rgb_matrix_set_color(41, 0, 0, 0); // Disable spacebar light
+
+}
+#endif
