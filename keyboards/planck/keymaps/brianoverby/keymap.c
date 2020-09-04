@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYSTEM] = LAYOUT_planck_grid(
         XXXXXXX, XXXXXXX, WNTG,    XXXXXXX, RSET,    LGT_TST, XXXXXXX, XXXXXXX, XXXXXXX, LGT_MOR, LGT_MOF, LGT_TOG,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME,    XXXXXXX, XXXXXXX, XXXXXXX, LGT_SPD, LGT_SPI, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGT_SAD, LGT_BRI, LGT_SAI,
+        XXXXXXX, XXXXXXX, RGBOFF,  RGBON,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGT_SAD, LGT_BRI, LGT_SAI,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGT_HUD, LGT_BRD, LGT_HUI
     )
 };
@@ -58,7 +58,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) { // Toggle game mode
         gamemode_enabled = !gamemode_enabled;
       }
-      return true;
+      return false;
       break;
     case WNTG:
       if (record->event.pressed) { // Toggle Windows Key

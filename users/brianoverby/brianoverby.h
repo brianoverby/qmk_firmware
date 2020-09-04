@@ -17,6 +17,8 @@ enum userspace_custom_keycodes {
   SCLN,                  // ; | :
   QUOT,                  // ' | "
   WNTG,                  // WinKey toggle keycode
+  RGBON,                 
+  RGBOFF,
   NEW_SAFE_RANGE
 };
 
