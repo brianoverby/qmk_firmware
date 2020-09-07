@@ -1,10 +1,6 @@
 #include "keymap_danish.h"
 #include "brianoverby.h"
 
-#ifdef RGB_MATRIX_ENABLE
-  bool fancyLightEnabled = true;
-#endif
-
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
@@ -95,32 +91,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     
-    case RGBON:
-      if (record->event.pressed) {
-        #ifdef RGB_MATRIX_ENABLE 
-          rgb_matrix_enable_noeeprom();
-          fancyLightEnabled = true;
-          rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_UP_DOWN);
-        #endif
-      }
-      return false;
-      break;  
-    case RGBOFF:
-      if (record->event.pressed) {
-        #ifdef RGB_MATRIX_ENABLE 
-          rgb_matrix_disable_noeeprom();
-          fancyLightEnabled = false;
-        #endif
-      }
-      return false;
-      break;  
-
   }
   return process_record_keymap(keycode, record);
 };
 
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_CUSTOM_MODE
+// This code is only active if I set RGB_CUSTOM_MODE in my user/config.h
 
 /* |----+----+----+----+----+----+----+----+----+----+----+----|
  * |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 |
@@ -131,8 +108,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * |----+----+----+----+----+----+----+----+----+----+----+----|
  * | 36 | 37 | 38 | 39 | 40 |   41    | 42 | 43 | 44 | 45 | 46 |
  * |----+----+----+----+----+----+----+----+----+----+----+----|
- * Set indices below of led's you want for each layer and color (Color A and color B)
- * Note: use 41 and 43 for GRID layout, 42 for MIT.
  */
 
 int arrNum[] = {0,1,2,3,4,5,6,7,8,9,10,13,14,15,25,23,26,27,38};
@@ -163,12 +138,11 @@ void set_color_matrix(int *numbers, int arrSize, int r_val, int g_val, int b_val
 
 void rgb_matrix_indicators_user() {
 
-  //if (!fancyLightEnabled) {
+    // Set different colors based on active layer
     switch (biton32(layer_state)) {
       case _BASE:
         rgb_matrix_set_color_all(255, 255, 255);
         rgb_matrix_set_color(37, 0, 255, 0); // Fn
-
         break;
       case _GAME:
         rgb_matrix_set_color_all(255, 255, 255);
@@ -206,7 +180,6 @@ void rgb_matrix_indicators_user() {
     }
     rgb_matrix_set_color(40, 30, 144, 255); //Lower
     rgb_matrix_set_color(42, 255, 69, 0); //Raise
-  //}
-  
+
 }
 #endif
