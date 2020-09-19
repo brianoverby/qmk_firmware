@@ -1,6 +1,10 @@
 #include "keymap_danish.h"
 #include "brianoverby.h"
 
+// For Win key and game mode toggle
+bool winkey_enabled = true;
+bool gamemode_enabled = false;
+
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
   return state;
@@ -91,6 +95,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     
+    case WNTG:
+      if (record->event.pressed) { // Toggle Windows Key
+        winkey_enabled = !winkey_enabled;
+      }
+      return false;
+      break;
+    
+    case KC_LGUI: // Check if Windows Key is disabled 
+      if (!winkey_enabled) {
+        return false;
+      } else {
+        return true;
+      }
+      break;
+    
+    case GAME:
+      if (record->event.pressed) { // Toggle game mode
+        gamemode_enabled = !gamemode_enabled;
+      }
+      return true;
+      break;
+    
+    case DK_TILD: // Send TAB, when game mode is enabled else send ~ or `
+    case DK_GRV:
+      if(gamemode_enabled) {
+        if (record->event.pressed) {
+          register_code(KC_TAB);
+        } else {
+          unregister_code(KC_TAB);
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
   }
   return process_record_keymap(keycode, record);
 };
