@@ -4,3 +4,5 @@
   #define STARTUP_SONG SONG(NO_SOUND)
   #define NO_MUSIC_MODE
 #endif
+
+#define COMBO_COUNT 1

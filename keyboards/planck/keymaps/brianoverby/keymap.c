@@ -46,3 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LGT_HUD, LGT_BRD, LGT_HUI
     )
 };
+
+// Backspace combo
+const uint16_t PROGMEM bs_combo[] = {DK_P, DK_ARNG, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {COMBO(bs_combo, KC_BSPC)};
