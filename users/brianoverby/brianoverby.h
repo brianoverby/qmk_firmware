@@ -17,6 +17,7 @@ enum userspace_custom_keycodes {
   SCLN,                  // ; | :
   QUOT,                  // ' | "
   WNTG,                  // WinKey toggle keycode
+  MACTG,                 // MacOS toggle keycode
   NEW_SAFE_RANGE
 };
 

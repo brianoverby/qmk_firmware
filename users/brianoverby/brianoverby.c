@@ -4,6 +4,7 @@
 // For Win key and game mode toggle
 bool winkey_enabled = true;
 bool gamemode_enabled = false;
+bool mac_layout = false;
 
 __attribute__ ((weak))
 layer_state_t layer_state_set_keymap (layer_state_t state) {
@@ -26,13 +27,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case COMM:    // , | <
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          unregister_code16(KC_LSFT);  // Remove shift before sending the keycode
-          register_code16(DK_LABK);
-          register_code16(KC_LSFT);
+          if(mac_layout) {
+            unregister_code16(KC_LSFT);  // Remove shift before sending the keycode
+            register_code16(KC_GRV);     // This is < on Danish Mac keyboard
+            register_code16(KC_LSFT);
+          } else {
+            unregister_code16(KC_LSFT);  // Remove shift before sending the keycode
+            register_code16(DK_LABK);
+            register_code16(KC_LSFT);
+          }            
         } else {
           register_code16(KC_COMM);
         }
       } else {
+        unregister_code16(KC_GRV);
         unregister_code16(DK_LABK);
         unregister_code16(KC_COMM);
       }
@@ -42,11 +50,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DOT:    // . | >
       if (record->event.pressed){
         if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(DK_RABK);
+          if(mac_layout) {
+            register_code16(KC_GRV);
+          } else {
+            register_code16(DK_RABK);
+          }
         } else {
           register_code16(KC_DOT);
         }
       } else {
+        unregister_code16(KC_GRV);
         unregister_code16(DK_RABK);
         unregister_code16(KC_DOT);
       }
@@ -114,7 +127,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) { // Toggle game mode
         gamemode_enabled = !gamemode_enabled;
       }
-      return true;
+      return false;
+      break;
+    
+    case MACTG:
+      if (record->event.pressed) { // Toggle Windows / Mac layout
+        mac_layout = !mac_layout;
+      }
+      return false;
       break;
     
     case DK_TILD: // Send TAB, when game mode is enabled else send ~ or `
@@ -130,6 +150,85 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return true;
       }
       break;
+
+    case DK_AT:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LALT(KC_NUHS));
+        } else {
+          unregister_code16(LALT(KC_NUHS));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+    
+    case DK_DLR:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LSFT(LALT(KC_3)));
+        } else {
+          unregister_code16(LSFT(LALT(KC_3)));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+    
+    case DK_BSLS:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LSFT(LALT(KC_7)));
+        } else {
+          unregister_code16(LSFT(LALT(KC_7)));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+
+    case DK_PIPE:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LALT(DK_I));
+        } else {
+          unregister_code16(LALT(DK_I));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+
+    case DK_LCBR:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LSFT(LALT(KC_8)));
+        } else {
+          unregister_code16(LSFT(LALT(KC_8)));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+
+    case DK_RCBR:
+      if(mac_layout) {
+        if (record->event.pressed) {
+          register_code16(LSFT(LALT(KC_9)));
+        } else {
+          unregister_code16(LSFT(LALT(KC_9)));
+        }
+        return false;
+      } else {
+        return true;
+      }
+      break;
+
   }
   return process_record_keymap(keycode, record);
 };
